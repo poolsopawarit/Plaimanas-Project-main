@@ -8,9 +8,10 @@
     --gray: #666;
     --light: #f5f5f5;
     --border: #eaeaea;
-    --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --nav-h: 60px;              /* ความสูงของ Navbar */
-    --max-w: 1200px;            /* ความกว้างสูงสุดของเนื้อหา */
+    --font: Arial, sans-serif;
+    --font-heading: 'Hanken Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --nav-h: 60px;
+    --max-w: 1200px;
     --fs-xs: 10px;
     --fs-sm: 11px;
     --fs-md: 12px;
@@ -23,12 +24,55 @@
 
 /* --- Reset --- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-/* ★ แก้ไข: เปลี่ยน overflow-x เป็น clip เพื่อป้องกันไม่ให้ไปบล็อก sticky scroll ของ element ลูก */
 body { overflow-x: clip; background: var(--white); color: var(--black); font-family: var(--font); }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 button { font-family: inherit; cursor: pointer; }
 img, video { display: block; max-width: 100%; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+
+/* =========================================
+   Typography — Hanken Grotesk (Headings/Display)
+   ========================================= */
+.navbar a,
+.nav-mini-dropdown a,
+.editorial-dropdown a,
+.mobile-nav-overlay a,
+.faq-tab,
+.faq-question,
+.ticker-item,
+.btn-send,
+.btn-subscribe,
+.footer-column h4,
+.footer-bottom,
+.info-card h4,
+.overlay-text,
+.new-label,
+.new-title,
+.bestseller-label,
+.collection-label,
+.inquiry-radio,
+.inquiry-checkbox {
+    font-family: var(--font-heading);
+}
+
+/* =========================================
+   Typography — Arial (Body/Text)
+   ========================================= */
+.new-desc,
+.bestseller-desc,
+.faq-desc,
+.faq-answer,
+.info-card p,
+.inquiry-content p,
+.footer-column a,
+.footer-column li,
+.navbar a.no-scale,
+.form-group input,
+.form-group select,
+.newsletter-col input {
+    font-family: Arial, sans-serif;
+}
 
 /* =========================================
    Navbar
@@ -40,14 +84,67 @@ img, video { display: block; max-width: 100%; }
     display: flex; justify-content: space-between; align-items: center;
     padding-inline: 40px;
     z-index: 999;
-    font-size: var(--fs-xs); font-weight: var(--fw-bold);
+    font-size: 13px; font-weight: 400;
     letter-spacing: var(--ls);
     border-bottom: 1px solid var(--border);
 }
 .nav-left, .nav-center, .nav-right { display: flex; align-items: center; gap: 30px; }
-.navbar a { text-transform: uppercase; transition: color var(--ease); }
-.navbar a:hover { color: #888; }
+.navbar a { text-transform: uppercase; transition: font-size var(--ease), font-weight var(--ease), color var(--ease); }
+
+.nav-center > a:hover,
+.nav-center .nav-dropdown-wrap > a:hover {
+    color: var(--black); font-size: 20px; font-weight: var(--fw-black);
+}
+
+.navbar a.no-scale:hover { font-size: 13px; font-weight: 400; color: #888; }
+
 .bag-icon { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+.nav-dropdown-wrap { position: relative; }
+
+.nav-mini-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: -10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 12px;
+    min-width: auto;
+    z-index: 1001;
+}
+.nav-mini-dropdown a {
+    display: block; font-size: 11px; font-weight: 400;
+    color: var(--black); padding: 4px 0; white-space: nowrap;
+}
+.nav-mini-dropdown a:hover { color: #aaa; font-size: 13px; font-weight: 400; }
+.nav-left .nav-dropdown-wrap:hover .nav-mini-dropdown { display: block; }
+
+.nav-center .nav-dropdown-wrap { position: relative; z-index: 999; }
+.editorial-dropdown {
+    display: none; position: absolute; top: 100%; left: 0;
+    padding-top: 10px; flex-direction: column; gap: 4px; min-width: 120px;
+}
+.nav-dropdown-wrap.dropdown-open .editorial-dropdown { display: flex; }
+.editorial-dropdown a {
+    display: block; color: #aaa; font-size: 13px; font-weight: 400;
+    letter-spacing: 1px; padding: 5px 0;
+    transition: font-size var(--ease), font-weight var(--ease), color var(--ease);
+}
+.editorial-dropdown a:hover { color: var(--white); font-size: 20px; font-weight: 400; }
+
+.editorial-backdrop {
+    display: none; position: fixed; top: var(--nav-h); left: 0;
+    width: 100vw; height: calc(100vh - var(--nav-h));
+    background: #000; z-index: 998; pointer-events: none;
+}
+.editorial-backdrop.active { display: block; }
+
+.navbar:has(.dropdown-open) { background: #000; border-bottom-color: transparent; }
+.navbar:has(.dropdown-open) a { color: transparent; }
+.navbar:has(.dropdown-open) .bag-icon { stroke: transparent; }
+.navbar:has(.dropdown-open) #editorialWrap > a { color: var(--white); font-size: 20px; font-weight: var(--fw-black); }
+.navbar:has(.dropdown-open) .editorial-dropdown a { color: #aaa; }
+.navbar:has(.dropdown-open) .editorial-dropdown a:hover { color: var(--white); }
 
 /* =========================================
    Hero Logo
@@ -56,302 +153,355 @@ img, video { display: block; max-width: 100%; }
     position: fixed; top: 20%; left: 50%;
     transform: translate(-50%, -50%);
     width: 100%; text-align: center;
-    font-size: 14vw;                       /* ★ ขนาดตัวหนังสือโลโก้ PLAIMANAS */
-    font-weight: var(--fw-black);
+    font-size: 14vw; font-weight: var(--fw-black);
     letter-spacing: -2px; color: var(--white);
     z-index: 50; pointer-events: none;
     mix-blend-mode: difference;
+    font-family: var(--font-heading);
 }
 
 /* =========================================
    Hero Video
    ========================================= */
-.hero-section {
-    width: 100%;
-    height: 100vh;                         /* ★ ความสูงของส่วน Hero Video (100vh = เต็มจอ) */
-    position: relative; background: var(--black);
-}
+.hero-section { width: 100%; height: 100vh; position: relative; background: var(--black); }
 .hero-section video { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.1) brightness(0.7); }
 
 /* =========================================
    5A. NEW Section
-   ★ ใช้ sticky scroll effect — ข้อความลอยจากกลางรูปถึงขอบล่างรูป
-   ★ ปรับความสูงได้ที่ height ของ .new-media
    ========================================= */
 .new-section {
-    background: var(--white);
-    padding: 100px 20px 40px;              /* ★ padding: บน ซ้ายขวา ล่าง */
+    background: var(--white); padding: 60px 20px 20px;
     display: flex; flex-direction: column; align-items: center;
     position: relative; z-index: 10;
 }
-.new-card {
-    max-width: 800px;                      /* ★ ความกว้างสูงสุดของการ์ด NEW */
-    width: 100%; text-align: center;
-    margin-bottom: 80px;                   /* ★ ระยะห่างด้านล่างของการ์ด NEW */
-}
-
+.new-card { max-width: 566px; width: 100%; text-align: center; margin-bottom: 40px; }
 .new-media {
-    display: block;
-    overflow: clip;                        /* ★ แก้ไข: เปลี่ยนเป็น clip เพื่อให้ position: sticky ทำงาน */
-    height: 150vh;                         /* ★ ความสูงกรอบรูป NEW (ยิ่งสูง sticky scroll ยิ่งนาน, 150vh = 1.5 เท่าของจอ) */
-    position: relative;
-    background: var(--black);              /* ★ สีพื้นหลังกรอบ (เปลี่ยนเป็น --black ให้กลืนกับรูป) */
-    margin-bottom: 30px;                   /* ★ ระยะห่างระหว่างรูปกับหัวข้อด้านล่าง */
+    display: block; overflow: hidden; height: 581px;
+    position: relative; background: var(--black); margin-bottom: 20px;
 }
-.new-media img {
-    position: sticky;                      /* ★ รูปติดอยู่กับจอขณะ scroll */
-    top: 0;
-    width: 100%;
-    height: 100vh;                         /* ★ ความสูงรูปที่แสดง = เต็มจอ (ปรับเป็น 80vh, 60vh ได้) */
-    object-fit: cover;                     /* วิธีครอปรูป: cover = เต็มพื้นที่ */
-}
+.new-media img { width: 100%; height: 100%; object-fit: cover; }
 .new-label {
-    position: sticky;
-    top: 45vh;                             /* ★ ตำแหน่งเริ่มต้นของข้อความ "NEW" (45vh ≈ กลางจอ) */
-    text-align: center;
-    color: var(--white);
-    font-size: clamp(2rem, 8vw, 6rem);    /* ★ ขนาดตัวหนังสือ "NEW" (min, preferred, max) */
-    font-weight: var(--fw-black);
-    text-transform: uppercase;
-    letter-spacing: 5px;                   /* ★ ระยะห่างระหว่างตัวอักษร */
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; color: var(--white);
+    font-size: clamp(2rem, 8vw, 6rem); font-weight: var(--fw-black);
+    text-transform: uppercase; letter-spacing: 5px;
     z-index: 20; pointer-events: none;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);  /* เงาตัวหนังสือ ให้เด่นจากพื้นหลัง */
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 .new-title {
-    font-size: var(--fs-base);             /* ★ ขนาดหัวข้อรองของ NEW */
-    font-weight: var(--fw-bold); text-transform: uppercase;
-    letter-spacing: var(--ls); margin-bottom: 15px;
+    font-size: 16px; font-weight: var(--fw-bold);
+    text-transform: none; letter-spacing: var(--ls); margin-bottom: 15px;
 }
 .new-desc {
-    font-size: var(--fs-sm);              /* ★ ขนาดตัวหนังสือคำอธิบาย NEW */
-    color: var(--gray); line-height: 1.8;
-    max-width: 500px;                      /* ★ ความกว้างสูงสุดของข้อความ */
-    margin-inline: auto;
+    font-size: 14px; color: var(--gray); line-height: 1.8;
+    max-width: 600px; margin-inline: auto;
 }
+.new-text-link { display: block; text-align: center; text-decoration: none; color: inherit; transition: color var(--ease); cursor: pointer; }
+.new-text-link:hover .new-title { color: #888; }
+.new-text-link:hover .new-desc { color: #aaa; }
 
 /* =========================================
    5B. BESTSELLER Section
-   ★ ใช้ sticky scroll effect — ข้อความลอยจากกลางรูปถึงขอบล่างรูป
-   ★ ปรับความสูงได้ที่ height ของ .bestseller-media
    ========================================= */
 .bestseller-section {
-    background: var(--white);
-    padding: 0 20px 40px;                 /* ★ padding: บน ซ้ายขวา ล่าง (บน=0 เพราะต่อจาก NEW) */
+    background: var(--white); padding: 0 20px 20px;
     display: flex; flex-direction: column; align-items: center;
     position: relative; z-index: 10;
 }
-.bestseller-card {
-    max-width: 800px;                      /* ★ ความกว้างสูงสุดของการ์ด BESTSELLER */
-    width: 100%; text-align: center;
-    margin-bottom: 80px;                   /* ★ ระยะห่างด้านล่างของการ์ด BESTSELLER */
-}
-
+.bestseller-card { max-width: 1549px; width: 100%; text-align: center; margin-bottom: 40px; }
 .bestseller-media {
-    display: block;
-    overflow: clip;                        /* ★ แก้ไข: เปลี่ยนเป็น clip เพื่อให้ position: sticky ทำงาน */
-    height: 150vh;                         /* ★ ความสูงกรอบวิดีโอ BESTSELLER (ยิ่งสูง sticky scroll ยิ่งนาน) */
-    position: relative;
-    background: var(--black);              /* ★ สีพื้นหลังกรอบ (เปลี่ยนเป็น --black ให้กลืนกับวิดีโอ) */
-    margin-bottom: 30px;                   /* ★ ระยะห่างระหว่างวิดีโอกับหัวข้อด้านล่าง */
+    display: block; overflow: hidden; height: 818px;
+    position: relative; background: var(--black); margin-bottom: 20px;
 }
-.bestseller-media video {
-    position: sticky;                      /* ★ วิดีโอติดอยู่กับจอขณะ scroll */
-    top: 0;
-    width: 100%;
-    height: 100vh;                         /* ★ ความสูงวิดีโอที่แสดง = เต็มจอ (ปรับเป็น 80vh, 60vh ได้) */
-    object-fit: cover;                     /* วิธีครอปวิดีโอ: cover = เต็มพื้นที่ */
-}
+.bestseller-media video { width: 100%; height: 100%; object-fit: cover; }
 .bestseller-label {
-    position: sticky;
-    top: 45vh;                             /* ★ ตำแหน่งเริ่มต้นของข้อความ "BESTSELLER" (45vh ≈ กลางจอ) */
-    text-align: center;
-    color: var(--white);
-    font-size: clamp(2rem, 8vw, 6rem);    /* ★ ขนาดตัวหนังสือ "BESTSELLER" (min, preferred, max) */
-    font-weight: var(--fw-black);
-    text-transform: uppercase;
-    letter-spacing: 5px;                   /* ★ ระยะห่างระหว่างตัวอักษร */
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; color: var(--white);
+    font-size: clamp(2rem, 8vw, 6rem); font-weight: var(--fw-black);
+    text-transform: uppercase; letter-spacing: 5px;
     z-index: 20; pointer-events: none;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);  /* เงาตัวหนังสือ */
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
-.bestseller-title {
-    font-size: var(--fs-base);             /* ★ ขนาดหัวข้อรองของ BESTSELLER */
-    font-weight: var(--fw-bold); text-transform: uppercase;
-    letter-spacing: var(--ls); margin-bottom: 15px;
-}
-.bestseller-desc {
-    font-size: var(--fs-sm);              /* ★ ขนาดตัวหนังสือคำอธิบาย BESTSELLER */
-    color: var(--gray); line-height: 1.8;
-    max-width: 500px;                      /* ★ ความกว้างสูงสุดของข้อความ */
-    margin-inline: auto;
-}
+.bestseller-title { font-size: var(--fs-base); font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: var(--ls); margin-bottom: 15px; }
+.bestseller-desc { font-size: var(--fs-sm); color: var(--gray); line-height: 1.8; max-width: 500px; margin-inline: auto; }
 
 /* =========================================
    6. Collections Section
    ========================================= */
+.collection1-section {
+    background: var(--white); display: flex; justify-content: center;
+    position: relative; z-index: 10;
+}
+.collection1-wrapper { max-width: 1291px; width: 100%; padding: 20px; }
+.collection1-wrapper .image-wrapper { height: 628px; }
+.collection1-hover { cursor: pointer; }
+.collection1-hover img,
+.collection1-hover video { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.5s ease; }
+.collection1-hover video { position: absolute; inset: 0; opacity: 0; }
+.collection1-hover:hover img { opacity: 0; }
+.collection1-hover:hover video { opacity: 1; }
+
 .collection-section { background: var(--white); position: relative; z-index: 10; }
 .collection-grid {
-    max-width: var(--max-w);               /* ★ ความกว้างสูงสุดของ grid */
-    width: 100%; margin-inline: auto;
+    max-width: var(--max-w); width: 100%; margin-inline: auto;
     display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 20px;                             /* ★ ระยะห่างระหว่างรูปแต่ละใบ */
-    padding: 20px;                         /* ★ ระยะขอบรอบ grid ทั้งหมด */
+    gap: 20px; padding: 20px;
 }
+.collection-grid-half { max-width: 1280px; grid-template-columns: 601px 601px; }
+.collection-grid-half .image-wrapper { height: 601px; }
 .collection-item { position: relative; }
-.collection-item.full-width { grid-column: span 2; }  /* รูปแถวบนกินพื้นที่ 2 คอลัมน์ */
+.collection-item.full-width { grid-column: span 2; }
 
-.collection-media {
-    position: relative; overflow: hidden;
-    aspect-ratio: 4 / 5;                  /* ★ สัดส่วนรูป Collection 02, 03 (4:5 = แนวตั้ง) */
-    background: var(--light);
+.image-wrapper { position: relative; overflow: hidden; }
+.image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.overlay-text {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white); font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: var(--fw-black); text-transform: uppercase;
+    letter-spacing: 5px; z-index: 20; pointer-events: none;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4); white-space: nowrap;
 }
-.collection-item.full-width .collection-media {
-    aspect-ratio: 16 / 9;                 /* ★ สัดส่วนรูป Collection 01 แถวบน (16:9 = แนวนอน) */
+.collection-grid-half .overlay-text {
+    top: 50%; left: 50%; bottom: auto;
+    transform: translate(-50%, -50%); text-align: center;
+    font-size: clamp(1.5rem, 4vw, 2.5rem); letter-spacing: 3px; white-space: nowrap;
 }
-.collection-media img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;                     /* วิธีครอปรูป */
-}
+.collection-grid-half .image-wrapper img { object-position: top; }
+
+.collection-hover { cursor: pointer; }
+.collection-hover .collection-default-img,
+.collection-hover .collection-hover-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.5s ease; }
+.collection-hover .collection-hover-img { position: absolute; inset: 0; opacity: 0; }
+.collection-hover:hover .collection-default-img { opacity: 0; }
+.collection-hover:hover .collection-hover-img { opacity: 1; }
+
+.collection-media { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: var(--light); }
+.collection-item.full-width .collection-media { aspect-ratio: 16 / 9; }
+.collection-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .collection-label {
     position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);      /* จัดข้อความให้อยู่กลางรูปพอดี */
-    color: var(--white);
-    font-size: clamp(2rem, 8vw, 6rem);    /* ★ ขนาดตัวหนังสือ "COLLECTION 01/02/03" */
-    font-weight: var(--fw-black);
-    text-transform: uppercase;
-    letter-spacing: 5px;                   /* ★ ระยะห่างระหว่างตัวอักษร */
-    z-index: 20; pointer-events: none;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);  /* เงาตัวหนังสือ */
+    transform: translate(-50%, -50%);
+    color: var(--white); font-size: clamp(2rem, 8vw, 6rem);
+    font-weight: var(--fw-black); text-transform: uppercase;
+    letter-spacing: 5px; z-index: 20; pointer-events: none;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* =========================================
    7. Ticker / Marquee
    ========================================= */
-.ticker-wrap { width: 100%; overflow: hidden; background: var(--black); padding: 15px 0; position: relative; z-index: 10; }
-.ticker { display: flex; white-space: nowrap; animation: ticker 30s linear infinite; }  /* ★ 30s = ความเร็วในการวิ่ง */
+.ticker-wrap { width: 100%; overflow: hidden; background: var(--black); height: 85px; display: flex; align-items: center; position: relative; z-index: 10; }
+.ticker { display: flex; white-space: nowrap; animation: ticker 12s linear infinite; align-items: center; height: 100%; }
 .ticker-item {
-    display: inline-flex; align-items: center;
-    padding-inline: 30px;
-    font-size: 3rem;                       /* ★ ขนาดตัวหนังสือ Marquee */
-    font-weight: var(--fw-black);
+    display: inline-flex; align-items: center; gap: 95px;
+    padding-inline: 95px; font-size: 3rem; font-weight: var(--fw-black);
     color: var(--white); text-transform: uppercase;
 }
-.ticker-arrow {
-    font-size: 2.5rem;                     /* ★ ขนาดลูกศร ← → */
-    margin-inline: 40px;                   /* ★ ระยะห่างซ้ายขวาของลูกศร */
-    font-family: monospace;
-}
+.ticker-arrow { display: inline-flex; align-items: center; vertical-align: middle; }
+.ticker-arrow svg { width: 45px; height: 45px; }
 @keyframes ticker { to { transform: translate3d(-50%, 0, 0); } }
 
 /* =========================================
    8. Footer Info
    ========================================= */
 .footer-info {
-    padding: 80px 40px;                   /* ★ padding: บนล่าง ซ้ายขวา */
+    padding: 80px 40px 60px;
     display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 40px;                             /* ★ ระยะห่างระหว่างการ์ดข้อมูล */
-    max-width: var(--max-w); margin-inline: auto;
+    gap: 60px; max-width: 1400px; margin-inline: auto;
     position: relative; z-index: 10;
+    border-top: 1px solid var(--border);
 }
-.info-card h4 { font-size: 13px; font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: var(--ls); margin-bottom: 20px; }
-.info-card p { font-size: var(--fs-sm); color: var(--gray); line-height: 1.8; max-width: 300px; }
+.info-card h4 { font-size: 14px; font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+.info-card p { font-size: 12px; color: var(--gray); line-height: 1.9; max-width: 280px; }
 
 /* =========================================
    9. FAQ
    ========================================= */
 .faq-section {
     background: var(--black); color: var(--white);
-    padding: 100px 20px;                  /* ★ padding: บนล่าง ซ้ายขวา */
-    text-align: center; position: relative; z-index: 10;
+    padding: 100px 20px 60px; text-align: center; position: relative; z-index: 10;
 }
-.faq-container { max-width: 900px; margin: 40px auto 0; text-align: left; }
-.faq-item { border-bottom: 1px solid #333; padding: 25px 0; cursor: pointer; }
-.faq-question { display: flex; justify-content: space-between; align-items: center; font-size: var(--fs-base); font-weight: var(--fw-bold); text-transform: uppercase; }
-.faq-answer {
-    max-height: 0; overflow: hidden;
-    transition: max-height var(--ease);    /* ★ ความเร็วแอนิเมชันเปิด-ปิด */
-    color: #aaa; font-size: var(--fs-md);
+.faq-section h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem); font-weight: var(--fw-black);
+    text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px;
 }
+.faq-desc { font-size: 13px; color: #aaa; line-height: 1.8; margin-bottom: 40px; }
+
+.faq-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 80px; flex-wrap: wrap; }
+.faq-tab {
+    background: transparent; color: var(--white); border: 1px solid #555;
+    border-radius: 30px; padding: 12px 25px; font-size: 12px; font-weight: var(--fw-bold);
+    text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all var(--ease);
+}
+.faq-tab:hover,
+.faq-tab.active { background: var(--white); color: var(--black); border-color: var(--white); }
+
+.faq-container { max-width: 1100px; margin: 0 auto; text-align: left; background: var(--black); }
+.faq-item { border-bottom: 1px solid #333; padding: 30px 0; cursor: pointer; }
+.faq-question {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; font-weight: var(--fw-bold);
+    text-transform: uppercase; letter-spacing: 1px; color: var(--white);
+}
+.faq-icon { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.3s ease; }
+.faq-item.active .faq-icon { transform: rotate(180deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: #aaa; font-size: 13px; line-height: 1.8; }
 .faq-item.active .faq-answer { max-height: 200px; margin-top: 15px; }
 
 /* =========================================
    10. Inquiry
    ========================================= */
 .inquiry-section {
-    padding: 100px 40px;                  /* ★ padding: บนล่าง ซ้ายขวา */
-    display: grid; grid-template-columns: 1fr 1.5fr;  /* ★ สัดส่วนข้อความ:ฟอร์ม = 1:1.5 */
-    gap: 60px;                             /* ★ ระยะห่างระหว่างข้อความกับฟอร์ม */
-    max-width: var(--max-w); margin-inline: auto;
-    position: relative; z-index: 10;
+    padding: 100px 40px; display: grid; grid-template-columns: 1fr 1.8fr;
+    gap: 80px; max-width: var(--max-w); margin-inline: auto;
+    position: relative; z-index: 10; border-top: 1px solid var(--border);
 }
-.inquiry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-.form-group { border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+.inquiry-content h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; margin-bottom: 25px; }
+.inquiry-content p { font-size: 13px; color: var(--gray); line-height: 1.8; max-width: 300px; }
+
+.inquiry-radio-group { display: flex; gap: 25px; margin-bottom: 30px; }
+.inquiry-radio { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 400; cursor: pointer; }
+.inquiry-radio input[type="radio"] { width: 18px; height: 18px; accent-color: var(--black); cursor: pointer; }
+
+.inquiry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 50px; }
+.form-group { border-bottom: 1px solid #ddd; padding-bottom: 10px; position: relative; }
+.form-label { display: block; font-size: 10px; color: var(--gray); margin-bottom: 4px; }
 .form-group input,
-.form-group select { width: 100%; border: none; outline: none; font-size: var(--fs-md); padding: 5px 0; background: transparent; }
+.form-group select {
+    width: 100%; border: none; outline: none; font-size: 14px;
+    padding: 8px 0; background: transparent; color: var(--black);
+    -webkit-appearance: none; -moz-appearance: none; appearance: none;
+}
+.form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0 center;
+    padding-right: 20px; cursor: pointer;
+}
+.form-group input::placeholder { color: var(--gray); font-size: 14px; }
+
+.inquiry-checkbox { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--gray); margin-top: 30px; cursor: pointer; }
+.inquiry-checkbox input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--black); cursor: pointer; }
+
 .btn-send {
     background: var(--black); color: var(--white); border: none;
-    padding: 15px 60px;                   /* ★ padding ของปุ่ม SEND */
-    font-weight: var(--fw-bold); text-transform: uppercase;
-    margin-top: 20px; transition: opacity var(--ease);
+    padding: 18px 70px; font-size: 14px; font-weight: var(--fw-bold);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-top: 30px; transition: opacity var(--ease); cursor: pointer;
 }
 .btn-send:hover { opacity: 0.7; }
 
 /* =========================================
    11. Main Footer
    ========================================= */
-.main-footer { background: #fcfcfc; padding: 80px 40px 40px; position: relative; z-index: 10; border-top: 1px solid #f0f0f0; }
-.footer-grid {
-    max-width: var(--max-w); margin-inline: auto;
-    display: grid; grid-template-columns: repeat(4, 1fr) 2fr;  /* 4 คอลัมน์เท่ากัน + 1 คอลัมน์ใหญ่ (newsletter) */
-    gap: 40px;
-}
-.footer-column h4 { font-size: var(--fs-md); font-weight: var(--fw-bold); text-transform: uppercase; margin-bottom: 30px; }
-.footer-column li { margin-bottom: 15px; }
-.footer-column a { color: var(--gray); font-size: var(--fs-sm); transition: color var(--ease); }
+.main-footer { background: var(--white); padding: 60px 40px 40px; position: relative; z-index: 10; border-top: 1px solid var(--border); }
+.footer-grid { max-width: 1400px; margin-inline: auto; display: grid; grid-template-columns: repeat(4, 1fr) 1.5fr; gap: 40px; }
+.footer-column h4 { font-size: 13px; font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+.footer-column ul { list-style: none; padding: 0; margin: 0; }
+.footer-column li { margin-bottom: 12px; }
+.footer-column a { color: var(--gray); font-size: 13px; font-weight: 400; transition: color var(--ease), opacity var(--ease); text-decoration: none; }
 .footer-column a:hover { color: var(--black); }
-.newsletter-col input { width: 100%; border: none; border-bottom: 1px solid #ddd; padding: 10px 0; font-size: var(--fs-sm); outline: none; margin-bottom: 20px; background: transparent; }
-.btn-subscribe { width: 100%; background: #e0e0e0; border: none; padding: 15px; font-size: var(--fs-xs); font-weight: var(--fw-bold); text-transform: uppercase; }
-.footer-bottom { max-width: var(--max-w); margin: 60px auto 0; display: flex; justify-content: space-between; font-size: var(--fs-xs); font-weight: var(--fw-bold); text-transform: uppercase; }
+
+/* Desktop only: sibling fade when hovering a link */
+@media (min-width: 901px) {
+    .footer-column ul:hover a { opacity: 0.3; }
+    .footer-column ul:hover a:hover { opacity: 1; color: var(--black); }
+}
+.newsletter-col input { width: 100%; border: none; border-bottom: 1px solid #333; padding: 10px 0; font-size: 14px; outline: none; margin-bottom: 20px; background: transparent; }
+.btn-subscribe { width: 100%; background: #ddd; border: none; padding: 15px; font-size: 13px; font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all var(--ease); }
+.btn-subscribe:hover { background: var(--black); color: var(--white); }
+.footer-bottom { max-width: 1400px; margin: 60px auto 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: 1px; padding-top: 30px; border-top: 1px solid var(--border); }
 
 /* =========================================
    12. Mobile Menu
    ========================================= */
-.mobile-menu-btn { display: none; background: none; border: none; font-size: 20px; color: var(--black); }
-.mobile-nav-overlay { display: none; position: fixed; inset: 0; background: var(--white); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 30px; }
+.mobile-menu-btn {
+    display: none; position: fixed; top: 0; left: 50%;
+    transform: translateX(-50%); height: var(--nav-h);
+    background: none; border: none; font-size: 24px;
+    color: var(--black); z-index: 1002; cursor: pointer;
+    font-family: var(--font-heading);
+}
+.mobile-nav-overlay {
+    display: none; position: fixed; top: var(--nav-h); left: 0;
+    width: 100%; height: calc(100vh - var(--nav-h));
+    background: var(--white); z-index: 999;
+    flex-direction: column; align-items: center;
+    padding-top: 30px; gap: 8px; overflow-y: auto;
+}
 .mobile-nav-overlay.active { display: flex; }
-.mobile-nav-overlay a { font-size: 18px; font-weight: var(--fw-bold); letter-spacing: 2px; text-transform: uppercase; }
-.mobile-nav-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 28px; color: var(--black); }
+.mobile-nav-overlay a { font-size: 14px; font-weight: var(--fw-bold); letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 10px 0; }
+.mobile-editorial-sub { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 10px; }
+.mobile-editorial-sub a { font-size: 13px; font-weight: var(--fw-bold); color: var(--black); }
+.mobile-editorial-toggle.active { font-size: 24px; font-weight: var(--fw-black); }
+.mobile-nav-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 28px; color: var(--black); cursor: pointer; }
 
 /* =========================================
-   13. Responsive — Tablet (≤900px)
+   13. Responsive — Tablet (900px)
    ========================================= */
 @media (max-width: 900px) {
     .navbar { padding-inline: 20px; }
     .nav-center { display: none; }
-    .mobile-menu-btn { display: block; }
-    .hide-mobile { display: none; }
-    .giant-logo { font-size: 18vw; top: 25%; }
+    .mobile-menu-btn { display: flex; align-items: center; }
+    .giant-logo {
+        font-size: 15vw; top: 5%; bottom: auto; left: 50%;
+        transform: translate(-50%, 0); text-align: center;
+        padding-left: 0; position: fixed; z-index: 1001; width: 100%;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .giant-logo.menu-open { transform: translate(-50%, calc(98vh - 100% - 10px)); }
+    .hero-section { height: 100vh; }
 
-    /* NEW — ปรับขนาดบน Tablet */
-    .new-section { padding: 60px 20px 20px; }
-    .new-card { margin-bottom: 50px; }
-    .new-media { height: 120vh; }          /* ★ ความสูงกรอบรูป NEW บน Tablet */
+    .new-section { padding: 40px 20px 15px; }
+    .new-card { margin-bottom: 30px; }
+    .new-media { height: 380px; }
 
-    /* BESTSELLER — ปรับขนาดบน Tablet */
-    .bestseller-section { padding: 0 20px 20px; }
-    .bestseller-card { margin-bottom: 50px; }
-    .bestseller-media { height: 120vh; }   /* ★ ความสูงกรอบวิดีโอ BESTSELLER บน Tablet */
+    .bestseller-section { padding: 0 20px 15px; }
+    .bestseller-card { margin-bottom: 30px; }
+    .bestseller-media { height: 500px; }
 
-    /* COLLECTION — ปรับ layout บน Tablet */
-    .collection-grid { grid-template-columns: 1fr; }                           /* เปลี่ยนเป็น 1 คอลัมน์ */
-    .collection-item.full-width { grid-column: span 1; }                       /* ไม่ต้อง span 2 แล้ว */
-    .collection-item.full-width .collection-media { aspect-ratio: 4 / 5; }     /* ★ สัดส่วนรูปแถวบนบน Tablet */
+    /* === Collection 01: full-width landscape === */
+    .collection1-section { padding: 0 15px; }
+    .collection1-wrapper { max-width: 100%; padding: 15px 0 0 0; }
+    .collection1-wrapper .image-wrapper { height: 220px; }
 
-    .ticker-item { font-size: 2rem; padding-inline: 20px; }                   /* ★ ขนาด Marquee บน Tablet */
+    /* === Collection 02 & 03: 2 columns side by side === */
+    .collection-grid { grid-template-columns: 1fr; }
+    .collection-grid-half {
+        grid-template-columns: 1fr 1fr;
+        max-width: 100%; gap: 10px; padding: 10px 15px;
+    }
+    .collection-grid-half .image-wrapper { height: 220px; }
+    .collection-grid-half .overlay-text {
+        font-size: clamp(0.9rem, 3.5vw, 1.4rem);
+        letter-spacing: 2px; white-space: normal;
+        text-align: center; line-height: 1.2;
+    }
+    .collection-item.full-width { grid-column: span 1; }
+    .collection-item.full-width .collection-media { aspect-ratio: 4 / 5; }
+
+    .ticker-item { font-size: 2rem; padding-inline: 20px; }
     .ticker-arrow { font-size: 1.8rem; margin-inline: 20px; }
 
     .footer-info { grid-template-columns: 1fr; text-align: center; padding: 60px 20px; }
     .info-card p { max-width: 100%; margin-inline: auto; }
+
+    /* === FAQ mobile: tabs stack vertical === */
+    .faq-section { padding: 80px 20px 60px; }
+    .faq-section h2 {
+        font-size: clamp(1.8rem, 6vw, 2.8rem);
+        line-height: 1.15; letter-spacing: 2px;
+        white-space: normal; word-break: break-word;
+    }
+    .faq-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 50px;
+    }
+    .faq-tab { width: auto; min-width: 120px; padding: 12px 28px; text-align: center; font-size: 12px; letter-spacing: 1.5px; }
 
     .inquiry-section { grid-template-columns: 1fr; padding: 60px 20px; gap: 40px; }
     .inquiry-content { text-align: center; }
@@ -361,46 +511,75 @@ img, video { display: block; max-width: 100%; }
 }
 
 /* =========================================
-   14. Responsive — Mobile (≤600px)
+   14. Responsive — Mobile (600px)
    ========================================= */
 @media (max-width: 600px) {
-    :root { --nav-h: 50px; }               /* ★ ความสูง Navbar บนมือถือ */
-    .navbar { padding-inline: 15px; font-size: 9px; }
-    .giant-logo { font-size: 16vw; top: 22%; }  /* ★ ขนาดโลโก้บนมือถือ */
+    :root { --nav-h: 50px; }
+    .navbar { padding-inline: 15px; font-size: 11px; }
+    .giant-logo { font-size: 15vw; }
+    .giant-logo.menu-open { transform: translate(-50%, calc(98vh - 100% - 10px)); }
+    .hero-section { height: 100vh; }
 
-    /* NEW — ปรับขนาดบนมือถือ */
-    .new-section { padding: 40px 15px 10px; }
-    .new-card { margin-bottom: 40px; }
-    .new-media { height: 100vh; }          /* ★ ความสูงกรอบรูป NEW บนมือถือ */
+    .new-section { padding: 30px 15px 10px; }
+    .new-card { margin-bottom: 20px; }
+    .new-media { height: 320px; }
     .new-title { font-size: var(--fs-md); }
     .new-desc { font-size: var(--fs-xs); }
-    .new-label { font-size: clamp(1.5rem, 7vw, 3rem); letter-spacing: 2px; }  /* ★ ขนาดตัวหนังสือ "NEW" บนมือถือ */
+    .new-label { font-size: clamp(1.5rem, 7vw, 3rem); letter-spacing: 2px; }
 
-    /* BESTSELLER — ปรับขนาดบนมือถือ */
     .bestseller-section { padding: 0 15px 10px; }
-    .bestseller-card { margin-bottom: 40px; }
-    .bestseller-media { height: 100vh; }   /* ★ ความสูงกรอบวิดีโอ BESTSELLER บนมือถือ */
+    .bestseller-card { margin-bottom: 20px; }
+    .bestseller-media { height: 380px; }
     .bestseller-title { font-size: var(--fs-md); }
     .bestseller-desc { font-size: var(--fs-xs); }
-    .bestseller-label { font-size: clamp(1.5rem, 7vw, 3rem); letter-spacing: 2px; }  /* ★ ขนาดตัวหนังสือ "BESTSELLER" บนมือถือ */
+    .bestseller-label { font-size: clamp(1.5rem, 7vw, 3rem); letter-spacing: 2px; }
 
-    /* COLLECTION — ปรับขนาดบนมือถือ */
-    .collection-grid { padding: 10px; gap: 10px; }                            /* ★ ระยะห่างบนมือถือ */
-    .collection-label { font-size: clamp(1.5rem, 7vw, 3rem); letter-spacing: 2px; }  /* ★ ขนาดตัวหนังสือ Collection บนมือถือ */
+    /* === Collection 01: full-width landscape === */
+    .collection1-section { padding: 0 12px; }
+    .collection1-wrapper { max-width: 100%; padding: 12px 0 0 0; }
+    .collection1-wrapper .image-wrapper { height: 185px; }
 
-    .ticker-item { font-size: 1.4rem; padding-inline: 15px; }                 /* ★ ขนาด Marquee บนมือถือ */
+    /* === Collection 02 & 03: 2 columns side by side === */
+    .collection-grid { padding: 8px 12px; gap: 8px; }
+    .collection-grid-half {
+        grid-template-columns: 1fr 1fr;
+        max-width: 100%; gap: 8px; padding: 8px 12px;
+    }
+    .collection-grid-half .image-wrapper { height: 160px; }
+    .collection-grid-half .overlay-text {
+        font-size: clamp(0.7rem, 3vw, 1rem);
+        letter-spacing: 1px; white-space: normal;
+        text-align: center; line-height: 1.2;
+    }
+    .collection-label { font-size: clamp(1.5rem, 7vw, 3rem); letter-spacing: 2px; }
+
+    .ticker-item { font-size: 1.4rem; padding-inline: 15px; }
     .ticker-arrow { font-size: 1.2rem; margin-inline: 10px; }
 
     .footer-info { padding: 40px 15px; gap: 30px; }
     .info-card h4 { font-size: var(--fs-md); margin-bottom: 12px; }
 
-    .faq-section { padding: 60px 15px; }
-    .faq-section h2 { font-size: 1.2rem; }
+    /* === FAQ mobile: tabs stack vertical === */
+    .faq-section { padding: 60px 20px 40px; text-align: center; }
+    .faq-section h2 {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+        line-height: 1.2; letter-spacing: 1.5px;
+        white-space: normal; word-break: break-word;
+        margin-bottom: 16px;
+    }
+    .faq-desc { font-size: 12px; margin-bottom: 30px; padding-inline: 10px; }
+    .faq-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 40px;
+    }
+    .faq-tab { width: auto; min-width: 100px; padding: 12px 24px; text-align: center; font-size: 12px; letter-spacing: 1.5px; }
     .faq-question { font-size: var(--fs-md); }
     .faq-answer { font-size: var(--fs-sm); }
 
     .inquiry-section { padding: 40px 15px; gap: 30px; }
-    .inquiry-form { grid-template-columns: 1fr; gap: 20px; }                  /* ★ ฟอร์มเปลี่ยนเป็น 1 คอลัมน์ */
+    .inquiry-form { grid-template-columns: 1fr; gap: 20px; }
     .btn-send { width: 100%; padding: 14px; }
 
     .main-footer { padding: 40px 15px 30px; }
@@ -411,12 +590,21 @@ img, video { display: block; max-width: 100%; }
 }
 
 /* =========================================
-   15. Responsive — Small Mobile (≤400px)
+   15. Responsive — Small Mobile (400px)
    ========================================= */
 @media (max-width: 400px) {
-    .giant-logo { font-size: 14vw; }       /* ★ ขนาดโลโก้บนจอเล็กมาก */
+    .giant-logo { font-size: 14vw; }
+
+    .collection1-wrapper .image-wrapper { height: 160px; }
+
+    .collection-grid-half .image-wrapper { height: 130px; }
+    .collection-grid-half .overlay-text {
+        font-size: clamp(0.6rem, 2.8vw, 0.9rem);
+        letter-spacing: 0.5px;
+    }
+
     .footer-grid { grid-template-columns: 1fr; }
     .newsletter-col { grid-column: span 1; }
-    .ticker-item { font-size: 1.1rem; }    /* ★ ขนาด Marquee บนจอเล็กมาก */
+    .ticker-item { font-size: 1.1rem; }
     .ticker-arrow { font-size: 1rem; margin-inline: 8px; }
 }
