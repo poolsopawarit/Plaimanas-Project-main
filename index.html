@@ -4,72 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLAIMANAS - Official Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="nav-left"><a href="#">TH - THB ▾</a></div>
+        <div class="nav-left">
+            <div class="nav-dropdown-wrap">
+                <a href="#" class="no-scale">TH - THB ▾</a>
+                <div class="nav-mini-dropdown">
+                    <a href="#">US - USD</a>
+                </div>
+            </div>
+        </div>
         <div class="nav-center">
             <a href="#">WOMEN</a>
             <a href="#">COLLECTIONS</a>
-            <a href="#">EDITORIAL</a>
+            <div class="nav-dropdown-wrap" id="editorialWrap">
+                <a href="#">EDITORIAL</a>
+                <div class="editorial-dropdown">
+                    <a href="#">A.S.C</a>
+                    <a href="#">BAZAAR</a>
+                    <a href="#">ELLE</a>
+                    <a href="#">GQ</a>
+                </div>
+            </div>
             <a href="#">NEWS</a>
             <a href="#">STORIES</a>
         </div>
         <div class="nav-right">
-            <a href="#" class="hide-mobile">SIGN IN</a>
-            <a href="#"><svg class="bag-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg></a>
-            <button class="mobile-menu-btn" style="display:none;">☰</button>
+            <a href="#" class="no-scale">SIGN IN</a>
+            <a href="#" class="no-scale"><svg class="bag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 7v11a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4V7Zm13 3V6a4 4 0 0 0-8 0v4"/></svg></a>
         </div>
     </nav>
+    <button class="mobile-menu-btn">☰</button>
+    <div class="editorial-backdrop" id="editorialBackdrop"></div>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <a href="#">WOMEN</a>
+        <a href="#">COLLECTIONS</a>
+        <a href="#" class="mobile-editorial-toggle">EDITORIAL ▾</a>
+        <div class="mobile-editorial-sub" style="display:none;">
+            <a href="#">A.S.C</a>
+            <a href="#">BAZAAR</a>
+            <a href="#">ELLE</a>
+            <a href="#">GQ</a>
+            <a href="#">L'OFFICIAL THAILAND</a>
+            <a href="#">NUMERO</a>
+            <a href="#">VOGUE</a>
+        </div>
+        <a href="#">NEWS</a>
+        <a href="#">STORIES</a>
+    </div>
 
     <h1 class="giant-logo">PLAIMANAS</h1>
 
     <section class="hero-section">
         <video autoplay loop muted playsinline id="heroVideo">
-            <source src="assets/img/mockup_video576.mp4" type="video/mp4">
+            <source src="assets/video/mockup_video576.mp4" type="video/mp4">
         </video>
     </section>
 
-    <!-- NEW & BESTSELLING -->
-    <section class="section-container">
-        <div class="product-card">
-            <div class="image-wrapper">
-                <img src="assets/img/mockup_img1.png" alt="New">
-                <h2 class="overlay-text">NEW</h2>
+    <!-- NEW -->
+    <section class="new-section">
+        <div class="new-card">
+            <div class="new-media">
+                <img src="assets/img/7b6529a12a4f5ab332188c7dac157175d7d93817.jpg" alt="New">
+                <h2 class="new-label">NEW</h2>
             </div>
-            <h3 class="product-title">Sed egestas, nibh a condimentum imperdiet</h3>
-            <p class="product-desc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo, turpis elit ultricies justo.</p>
-        </div>
-        <div class="product-card">
-            <div class="image-wrapper">
-                <img src="assets/img/mockup_img1.png" alt="Bestseller">
-                <h2 class="overlay-text">BESTSELLER</h2>
-            </div>
-            <h3 class="product-title">Sed egestas, nibh a condimentum imperdiet</h3>
-            <p class="product-desc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo, turpis elit ultricies justo.</p>
+            <a href="#" class="new-text-link">
+                <h3 class="new-title">Sed egestas, nibh a condimentum imperdiet</h3>
+                <p class="new-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo, turpis elit ultricies justo, vitae molestie quam justo ut lacus. Proin vitae</p>
+            </a>
         </div>
     </section>
 
-    <!-- COLLECTIONS -->
-    <section style="display: flex; justify-content: center; background: #fff;">
-        <div class="collection-grid">
-            <div class="collection-item full-width">
-                <div class="image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200" alt="C1">
-                    <h2 class="overlay-text">COLLECTION 01</h2>
-                </div>
+    <!-- BESTSELLER -->
+    <section class="bestseller-section">
+        <div class="bestseller-card">
+            <div class="bestseller-media">
+                <video src="assets/video/DTS_THE_LEADER_Joey_Bania_Clips_ID10.mp4" autoplay muted loop playsinline></video>
+                <h2 class="bestseller-label">BESTSELLER</h2>
             </div>
+           <a href="#" class="new-text-link">
+               <h3 class="new-title">Sed egestas, nibh a condimentum imperdiet</h3>
+               <p class="new-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo, turpis elit ultricies justo, vitae molestie quam justo ut lacus. Proin vitae</p>
+           </a>
+        </div>
+    </section>
+
+    <!-- COLLECTION 01 -->
+    <section class="collection1-section">
+        <div class="collection1-wrapper">
+            <div class="image-wrapper collection1-hover">
+                <img src="assets/img/collection1.1.jpg" alt="C1" class="collection1-img">
+                <video src="assets/video/DTS_THE_LEADER_Joey_Bania_Clips_ID10.mp4" muted loop playsinline class="collection1-video"></video>
+                <h2 class="overlay-text">COLLECTION 01</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLECTIONS 02 & 03 -->
+    <section style="display: flex; justify-content: center; background: #fff;">
+        <div class="collection-grid collection-grid-half">
+            <!-- Collection 02 -->
             <div class="collection-item">
-                <div class="image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=800" alt="C2">
+                <div class="image-wrapper collection-hover">
+                    <img src="assets/img/collection2.jpg" alt="C2" class="collection-default-img">
+                    <img src="assets/img/collection3.jpg" alt="C2 Hover" class="collection-hover-img">
                     <h2 class="overlay-text">COLLECTION 02</h2>
                 </div>
             </div>
+            <!-- Collection 03 -->
             <div class="collection-item">
-                <div class="image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=800" alt="C3">
+                <div class="image-wrapper collection-hover">
+                    <img src="assets/img/collection3.2.jpg" alt="C3" class="collection-default-img">
+                    <img src="assets/img/collection3.jpg" alt="C3 Hover" class="collection-hover-img">
                     <h2 class="overlay-text">COLLECTION 03</h2>
                 </div>
             </div>
@@ -79,29 +133,84 @@
     <!-- MARQUEE -->
     <div class="ticker-wrap">
         <div class="ticker">
-            <div class="ticker-item">NEW ARRIVAL <span class="ticker-arrow">←</span> BEST SELLING <span class="ticker-arrow">→</span> NEW ARRIVAL</div>
-            <div class="ticker-item">NEW ARRIVAL <span class="ticker-arrow">←</span> BEST SELLING <span class="ticker-arrow">→</span> NEW ARRIVAL</div>
+            <div class="ticker-item">NEW ARRIVAL <span class="ticker-arrow"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="11" width="20" height="2"/><rect x="4" y="9" width="2" height="2"/><rect x="4" y="13" width="2" height="2"/><rect x="2" y="11" width="2" height="2"/><rect x="6" y="7" width="2" height="2"/><rect x="6" y="15" width="2" height="2"/><rect x="8" y="5" width="2" height="2"/><rect x="8" y="17" width="2" height="2"/></svg></span> BEST SELLING <span class="ticker-arrow"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="11" width="20" height="2"/><rect x="18" y="9" width="2" height="2"/><rect x="18" y="13" width="2" height="2"/><rect x="20" y="11" width="2" height="2"/><rect x="16" y="7" width="2" height="2"/><rect x="16" y="15" width="2" height="2"/><rect x="14" y="5" width="2" height="2"/><rect x="14" y="17" width="2" height="2"/></svg></span></div>
+            <div class="ticker-item">NEW ARRIVAL <span class="ticker-arrow"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="11" width="20" height="2"/><rect x="4" y="9" width="2" height="2"/><rect x="4" y="13" width="2" height="2"/><rect x="2" y="11" width="2" height="2"/><rect x="6" y="7" width="2" height="2"/><rect x="6" y="15" width="2" height="2"/><rect x="8" y="5" width="2" height="2"/><rect x="8" y="17" width="2" height="2"/></svg></span> BEST SELLING <span class="ticker-arrow"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="11" width="20" height="2"/><rect x="18" y="9" width="2" height="2"/><rect x="18" y="13" width="2" height="2"/><rect x="20" y="11" width="2" height="2"/><rect x="16" y="7" width="2" height="2"/><rect x="16" y="15" width="2" height="2"/><rect x="14" y="5" width="2" height="2"/><rect x="14" y="17" width="2" height="2"/></svg></span></div>
+            <div class="ticker-item">NEW ARRIVAL <span class="ticker-arrow"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="11" width="20" height="2"/><rect x="4" y="9" width="2" height="2"/><rect x="4" y="13" width="2" height="2"/><rect x="2" y="11" width="2" height="2"/><rect x="6" y="7" width="2" height="2"/><rect x="6" y="15" width="2" height="2"/><rect x="8" y="5" width="2" height="2"/><rect x="8" y="17" width="2" height="2"/></svg></span> BEST SELLING <span class="ticker-arrow"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="11" width="20" height="2"/><rect x="18" y="9" width="2" height="2"/><rect x="18" y="13" width="2" height="2"/><rect x="20" y="11" width="2" height="2"/><rect x="16" y="7" width="2" height="2"/><rect x="16" y="15" width="2" height="2"/><rect x="14" y="5" width="2" height="2"/><rect x="14" y="17" width="2" height="2"/></svg></span></div>
+            <div class="ticker-item">NEW ARRIVAL <span class="ticker-arrow"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="11" width="20" height="2"/><rect x="4" y="9" width="2" height="2"/><rect x="4" y="13" width="2" height="2"/><rect x="2" y="11" width="2" height="2"/><rect x="6" y="7" width="2" height="2"/><rect x="6" y="15" width="2" height="2"/><rect x="8" y="5" width="2" height="2"/><rect x="8" y="17" width="2" height="2"/></svg></span> BEST SELLING <span class="ticker-arrow"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="11" width="20" height="2"/><rect x="18" y="9" width="2" height="2"/><rect x="18" y="13" width="2" height="2"/><rect x="20" y="11" width="2" height="2"/><rect x="16" y="7" width="2" height="2"/><rect x="16" y="15" width="2" height="2"/><rect x="14" y="5" width="2" height="2"/><rect x="14" y="17" width="2" height="2"/></svg></span></div>
         </div>
     </div>
 
     <!-- FOOTER INFO -->
     <section class="footer-info">
-        <div class="info-card"><h4>WORLDWIDE SHIPPING</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
-        <div class="info-card"><h4>CUSTOMER SERVICE</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
-        <div class="info-card"><h4>SECURE PAYMENT</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
+        <div class="info-card"><h4>WORLDWIDE SHIPPING</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo, turpis elit ultricies justo, vitae molestie quam justo ut lacus. Proin vitae</p></div>
+        <div class="info-card"><h4>CUSTOMER SERVICE</h4><p><span style="text-decoration: underline;">Lorem ipsum dolor sit amet</span>, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo, turpis elit ultricies justo, vitae molestie quam justo ut lacus. Proin vitae</p></div>
+        <div class="info-card"><h4>SECURE PAYMENT</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo, turpis elit ultricies justo, vitae molestie quam justo ut lacus. Proin vitae</p></div>
     </section>
 
     <!-- FAQ -->
     <section class="faq-section">
         <h2>Frequently Asked Questions</h2>
-        <div class="faq-container">
+        <p class="faq-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo.</p>
+        <div class="faq-tabs">
+            <button class="faq-tab active" data-category="orders">ORDERS</button>
+            <button class="faq-tab" data-category="shipping">SHIPPING</button>
+            <button class="faq-tab" data-category="returns">RETURNS & EXCHANGES</button>
+            <button class="faq-tab" data-category="sizing">SIZING & PRODUCTS</button>
+        </div>
+        <div class="faq-container" data-category="orders">
             <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-question">What is your return policy? <span>+</span></div>
-                <div class="faq-answer">Items can be returned within 14 days of receipt, provided they are unworn and in original condition.</div>
+                <div class="faq-question">What is your return policy? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Items can be returned within 14 days of receipt, provided they are unworn, unwashed, and in original condition with tags attached.</div>
             </div>
             <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-question">Can I exchange for a different size? <span>+</span></div>
+                <div class="faq-question">Can I exchange for a different size? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
                 <div class="faq-answer">Yes, we offer exchanges for different sizes depending on availability.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">Are sale items refundable? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Sale items are final sale and cannot be returned or exchanged unless defective.</div>
+            </div>
+        </div>
+        <div class="faq-container" data-category="shipping" style="display:none;">
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">Do you offer international shipping? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Items can be returned within 14 days of receipt, provided they are unworn, unwashed, and in original condition with tags attached.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">How long does delivery take? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Domestic orders typically arrive within 3-5 business days. International orders may take 7-14 business days.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">How can I track my order? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Once your order is shipped, you will receive a tracking number via email.</div>
+            </div>
+        </div>
+        <div class="faq-container" data-category="returns" style="display:none;">
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">How do I initiate a return? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Contact our customer service team via email or phone to initiate a return. You will receive a prepaid return label.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">How long does a refund take? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Refunds are processed within 5-7 business days after we receive your returned item.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">Can I return an item bought online in store? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Yes, items purchased online can be returned at any of our retail locations.</div>
+            </div>
+        </div>
+        <div class="faq-container" data-category="sizing" style="display:none;">
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">How do I find my size? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Please refer to our size guide on each product page for detailed measurements.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">Do your products run true to size? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Our products generally run true to size. We recommend checking the size guide for specific measurements.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">What materials are used? <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="faq-answer">Material details are listed on each product page under the description section.</div>
             </div>
         </div>
     </section>
@@ -109,16 +218,23 @@
     <!-- INQUIRY -->
     <section class="inquiry-section">
         <div class="inquiry-content">
-            <h2>Make an Inquiry</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h2>Make an<br>Inquiry</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare, nisl non rhoncus commodo.</p>
         </div>
-        <form class="inquiry-form">
-            <div class="form-group"><input type="text" placeholder="Full name*"></div>
-            <div class="form-group"><input type="email" placeholder="Email*"></div>
-            <div class="form-group"><input type="tel" placeholder="Phone Number*"></div>
-            <div class="form-group"><select><option>Select Subject*</option></select></div>
+        <div class="inquiry-form-wrap">
+            <div class="inquiry-radio-group">
+                <label class="inquiry-radio"><input type="radio" name="type" value="onsite" checked> Onsite</label>
+                <label class="inquiry-radio"><input type="radio" name="type" value="hybrid"> Hybrid</label>
+            </div>
+            <form class="inquiry-form">
+                <div class="form-group"><input type="text" placeholder="Full name*"></div>
+                <div class="form-group"><label class="form-label">Email*</label><input type="email" placeholder="Plaimanas@gmail.com"></div>
+                <div class="form-group"><input type="tel" placeholder="Phone Number*"></div>
+                <div class="form-group"><select><option value="" disabled selected>Select Subject*</option><option>General inquiry</option><option>Job Application</option><option>Media & Press</option></select></div>
+            </form>
+            <label class="inquiry-checkbox"><input type="checkbox"> I agree to all terms & conditions</label>
             <button type="submit" class="btn-send">SEND</button>
-        </form>
+        </div>
     </section>
 
     <!-- MAIN FOOTER -->
@@ -126,19 +242,35 @@
         <div class="footer-grid">
             <div class="footer-column">
                 <h4>ABOUT</h4>
-                <ul><li><a href="#">Women</a></li><li><a href="#">Collections</a></li></ul>
+                <ul>
+                    <li><a href="#">Women</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">Editorial</a></li>
+                    <li><a href="#">Stories</a></li>
+                </ul>
             </div>
             <div class="footer-column">
                 <h4>HELP</h4>
-                <ul><li><a href="#">Payment Notification</a></li><li><a href="#">FAQ</a></li></ul>
+                <ul>
+                    <li><a href="#">Payment Notification</a></li>
+                    <li><a href="#">Customer Service</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
             </div>
             <div class="footer-column">
                 <h4>SOCIAL</h4>
-                <ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
             </div>
             <div class="footer-column">
                 <h4>LEGAL</h4>
-                <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookies Policy</a></li></ul>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookies Policy</a></li>
+                </ul>
             </div>
             <div class="footer-column newsletter-col">
                 <h4>NEWSLETTER</h4>
@@ -148,17 +280,149 @@
         </div>
         <div class="footer-bottom">
             <div>©PLAIMANAS</div>
-            <a href="#" style="color:#000; text-decoration:none;">Web by ::*</a>
+            <a href="#" style="color:#000; text-decoration:none;">Web by :: Pawarit Poolso </a>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
+            
             const video = document.getElementById('heroVideo');
             window.addEventListener('scroll', () => {
                 const scroll = window.scrollY;
-                if(video) video.style.opacity = Math.max(0.1, 1 - (scroll / 800));
+                if (video) video.style.opacity = Math.max(0.1, 1 - (scroll / 800));
             });
+
+            
+            const c1 = document.querySelector('.collection1-hover');
+            const c1Video = c1 && c1.querySelector('.collection1-video');
+            if (c1 && c1Video) {
+                c1.addEventListener('mouseenter', () => { c1Video.currentTime = 0; c1Video.play(); });
+                c1.addEventListener('mouseleave', () => { c1Video.pause(); });
+            }
+
+            // =============================================
+            // Scroll label — desktop only, static on mobile
+            // =============================================
+            function setupScrollLabel(mediaSelector, labelSelector) {
+                const media = document.querySelector(mediaSelector);
+                const label = document.querySelector(labelSelector);
+                if (!media || !label) return;
+
+                function resetLabelCenter() {
+                    label.style.top = '50%';
+                    label.style.transform = 'translate(-50%, -50%)';
+                }
+
+               
+                if (window.innerWidth <= 900) {
+                    resetLabelCenter();
+                    return;
+                }
+
+                window.addEventListener('scroll', () => {
+                   
+                    if (window.innerWidth <= 900) {
+                        resetLabelCenter();
+                        return;
+                    }
+
+                    const rect = media.getBoundingClientRect();
+                    const mediaHeight = rect.height;
+                    const labelHeight = label.offsetHeight;
+                    const centerPos = (mediaHeight - labelHeight) / 2;
+                    const maxPos = mediaHeight - labelHeight - 10;
+                    const scrollPast = -(rect.top + mediaHeight / 2 - window.innerHeight / 2);
+
+                    if (scrollPast <= 0) {
+                        label.style.top = centerPos + 'px';
+                    } else {
+                        label.style.top = Math.min(centerPos + scrollPast, maxPos) + 'px';
+                    }
+                    label.style.transform = 'translateX(-50%)';
+                });
+            }
+
+            setupScrollLabel('.new-media', '.new-label');
+            setupScrollLabel('.bestseller-media', '.bestseller-label');
+
+            
+            window.addEventListener('resize', () => {
+                const newLabel = document.querySelector('.new-label');
+                const bestLabel = document.querySelector('.bestseller-label');
+                if (window.innerWidth <= 900) {
+                    if (newLabel) {
+                        newLabel.style.top = '50%';
+                        newLabel.style.transform = 'translate(-50%, -50%)';
+                    }
+                    if (bestLabel) {
+                        bestLabel.style.top = '50%';
+                        bestLabel.style.transform = 'translate(-50%, -50%)';
+                    }
+                }
+            });
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileOverlay = document.getElementById('mobileNavOverlay');
+            const editorialToggle = document.querySelector('.mobile-editorial-toggle');
+            const editorialSub = document.querySelector('.mobile-editorial-sub');
+
+            if (mobileMenuBtn && mobileOverlay) {
+                const giantLogo = document.querySelector('.giant-logo');
+                mobileMenuBtn.addEventListener('click', () => {
+                    const isOpen = mobileOverlay.classList.toggle('active');
+                    mobileMenuBtn.textContent = isOpen ? '✕' : '☰';
+                    if (giantLogo) {
+                        giantLogo.classList.toggle('menu-open', isOpen);
+                    }
+                });
+            }
+            if (editorialToggle && editorialSub) {
+                editorialToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isOpen = editorialSub.style.display === 'flex';
+                    editorialSub.style.display = isOpen ? 'none' : 'flex';
+                    editorialToggle.textContent = isOpen ? 'EDITORIAL ▾' : 'EDITORIAL ▴';
+                    editorialToggle.classList.toggle('active', !isOpen);
+                });
+            }
+
+            // FAQ tabs
+            document.querySelectorAll('.faq-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const category = tab.dataset.category;
+                    document.querySelectorAll('.faq-container').forEach(c => {
+                        c.style.display = c.dataset.category === category ? 'block' : 'none';
+                    });
+                });
+            });
+
+            // Editorial dropdown
+            const editorialWrap = document.getElementById('editorialWrap');
+            const backdrop = document.getElementById('editorialBackdrop');
+            let closeTimer = null;
+
+            function openEditorial() {
+                clearTimeout(closeTimer);
+                backdrop.classList.add('active');
+                editorialWrap.classList.add('dropdown-open');
+            }
+
+            function startCloseEditorial() {
+                closeTimer = setTimeout(() => {
+                    backdrop.classList.remove('active');
+                    editorialWrap.classList.remove('dropdown-open');
+                }, 150);
+            }
+
+            if (editorialWrap && backdrop) {
+                editorialWrap.addEventListener('mouseenter', openEditorial);
+                editorialWrap.addEventListener('mouseleave', startCloseEditorial);
+            }
         });
     </script>
 </body>
